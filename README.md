@@ -1,5 +1,14 @@
 # Launch Radar
 
+[![make.fun · token-radar-01](https://make.fun/badge/token-radar-01.svg)](https://make.fun/bounty/token-radar-01?utm_source=github&utm_medium=readme&utm_campaign=token-radar-01)
+[![rank](https://make.fun/badge/token-radar-01/2780qq/launch-radar/rank.svg)](https://make.fun/bounty/token-radar-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=token-radar-01)
+[![reward](https://make.fun/badge/token-radar-01/2780qq/launch-radar/reward.svg)](https://make.fun/bounty/token-radar-01?utm_source=github&utm_medium=readme&utm_campaign=token-radar-01)
+
+A dashboard that finds the protocols which record no token yet and ranks them by what a token
+would be worth if the protocol's record stayed as it is. Entered in make.fun's
+[best token launch radar](https://make.fun/bounty/token-radar-01) bounty.
+
+
 A dashboard that finds the protocols which record no token yet and ranks them by what a token
 would be worth if the protocol's record stayed as it is.
 
