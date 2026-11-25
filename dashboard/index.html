@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Launch Radar — pre-token protocols ranked by implied value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap bar">
+    <div class="brand">
+      <span class="mark" aria-hidden="true"></span>
+      <div>
+        <h1>Launch Radar</h1>
+        <p class="sub" id="sub">&nbsp;</p>
+      </div>
+    </div>
+    <div class="law" id="law"></div>
+  </div>
+</header>
+
+<section class="wrap controls" aria-label="Filters">
+  <div class="search">
+    <label for="q">Search</label>
+    <input id="q" type="search" placeholder="a protocol, a category, a chain" autocomplete="off">
+  </div>
+  <div class="chips" id="catChips" role="group" aria-label="Category"></div>
+  <div class="chips" id="flagChips" role="group" aria-label="Status">
+    <button class="chip on" data-flag="all">All</button>
+    <button class="chip" data-flag="watch">Watchlist</button>
+    <button class="chip" data-flag="early">Below floor</button>
+    <button class="chip" data-flag="hot">Rising</button>
+  </div>
+  <div class="count" id="count"></div>
+</section>
+
+<main class="wrap layout">
+  <section class="board" aria-label="Ranked board">
+    <div class="thead" role="row">
+      <button class="h num" data-sort="rank">#</button>
+      <button class="h name" data-sort="name">Protocol</button>
+      <button class="h cat" data-sort="category">Category</button>
+      <button class="h num" data-sort="tvl_usd">TVL</button>
+      <button class="h num" data-sort="change_7d">7d</button>
+      <button class="h num" data-sort="implied_value_usd">Implied value</button>
+    </div>
+    <ol id="rows" class="rows"></ol>
+  </section>
+
+  <aside class="detail" id="detail" aria-live="polite"></aside>
+</main>
+
+<footer class="wrap foot">
+  <p id="method"></p>
+  <p class="fine">Every figure derives from the sealed snapshot alone. A protocol that records no token is never claimed to have none; this board is a ranking by implied value, not a prediction that a token is issued.</p>
+</footer>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
