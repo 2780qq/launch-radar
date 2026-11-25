@@ -1,3 +1,5 @@
 out/
 shot/
 *.pyc
+gatecheck.py
+shot.py
