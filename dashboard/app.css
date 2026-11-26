@@ -138,3 +138,16 @@ input[type=search]:focus { outline: none; border-color: var(--accent); }
   .thead, .row { grid-template-columns: 38px minmax(0,1.4fr) 92px 62px 108px; }
   .cat, .h.cat { display: none; }
 }
+
+/* the market's own prices: a sheet that shows the fit against the points it was fitted to */
+.marketview { padding: 20px 18px 24px; }
+.msheet h2 { font-size: 17px; margin: 0 0 6px; }
+.msheet .ml { color: var(--muted); font-size: 12.5px; margin: 0 0 14px; max-width: 720px; line-height: 1.6; }
+.mchart { width: 100%; height: auto; background: var(--ink); border: 1px solid var(--line-soft); border-radius: 8px; }
+.mkey { display: flex; gap: 20px; flex-wrap: wrap; font-size: 11.5px; color: var(--muted); margin: 10px 0 16px; }
+.mkey span { display: inline-flex; align-items: center; gap: 6px; }
+.mkey i { width: 14px; height: 3px; display: inline-block; border-radius: 2px; }
+.mtable { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.mtable th { text-align: left; color: var(--dim); font-size: 10.5px; text-transform: uppercase; letter-spacing: .07em; padding: 8px 10px 8px 0; border-bottom: 1px solid var(--line); }
+.mtable td { padding: 7px 10px 7px 0; border-bottom: 1px solid var(--line-soft); }
+.mtable td.n, .mtable th.n { text-align: right; padding-right: 0; font-variant-numeric: tabular-nums; }

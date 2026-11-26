@@ -259,7 +259,7 @@ export function impliedValue(p: SnapshotProtocol, model: Model, asOf: string): {
 /** How many pre-token protocols below the watchlist floor the early radar carries, by TVL. */
 export const EARLY_ROWS = 160;
 /** How many live-token protocols the live view carries, by market cap. */
-export const LIVE_ROWS = 30;
+export const LIVE_ROWS = 140;
 
 export interface BoardRow {
   rank: number;

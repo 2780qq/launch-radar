@@ -68,7 +68,61 @@
     });
   }
 
+  /** The market's own prices: the live protocols, TVL against market cap, with the fitted law drawn. */
+  function renderMarket() {
+    var ol = document.getElementById('rows');
+    ol.textContent = '';
+    document.getElementById('count').textContent = R.live.length + ' live protocols, priced by the market';
+    var host = document.createElement('div');
+    host.className = 'marketview';
+    host.innerHTML = marketSheet();
+    ol.appendChild(host);
+  }
+
+  function marketSheet() {
+    var w = 700, h = 330, padL = 56, padR = 18, padT = 18, padB = 40;
+    var pts = R.live.filter(function (p) { return p.tvl_usd > 0 && p.mcap_usd > 0; });
+    var lx = pts.map(function (p) { return Math.log10(p.tvl_usd); });
+    var ly = pts.map(function (p) { return Math.log10(p.mcap_usd); });
+    var xmin = Math.min.apply(null, lx) - 0.2, xmax = Math.max.apply(null, lx) + 0.2;
+    var ymin = Math.min.apply(null, ly) - 0.3, ymax = Math.max.apply(null, ly) + 0.3;
+    var X = function (v) { return padL + ((v - xmin) / (xmax - xmin)) * (w - padL - padR); };
+    var Y = function (v) { return padT + h - padT - padB - ((v - ymin) / (ymax - ymin)) * (h - padT - padB); };
+
+    // the law, drawn across the same range
+    var x0 = xmin, x1 = xmax;
+    var y0 = f.intercept + f.slope * x0, y1 = f.intercept + f.slope * x1;
+
+    var dots = pts.map(function (p) {
+      var cx = X(Math.log10(p.tvl_usd)), cy = Y(Math.log10(p.mcap_usd));
+      return '<circle cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="4.2" fill="#f0a83c" opacity=".72"/>';
+    }).join('');
+
+    var grid = '';
+    for (var g = 0; g <= 4; g++) {
+      var gy = padT + h - padT - padB - (g / 4) * (h - padT - padB);
+      grid += '<line x1="' + padL + '" y1="' + gy + '" x2="' + (w - padR) + '" y2="' + gy + '" stroke="#232e3e"/>';
+      var lab = Math.pow(10, ymin + (g / 4) * (ymax - ymin));
+      grid += '<text x="' + (padL - 8) + '" y="' + (gy + 4) + '" text-anchor="end" font-size="10" fill="#5c6b7e" font-family="ui-monospace,monospace">' + money(lab) + '</text>';
+    }
+
+    var rowsHtml = pts.slice(0, 14).map(function (p) {
+      return '<tr><td>' + p.name + '</td><td class="n">' + money(p.tvl_usd) + '</td><td class="n">' + money(p.mcap_usd) + '</td><td class="n" style="color:#f0a83c">' + p.multiple.toFixed(2) + 'x</td></tr>';
+    }).join('');
+
+    return '<div class="msheet">' +
+      '<h2>The market\'s own prices</h2>' +
+      '<p class="ml">Every protocol in the snapshot that already trades a token, its TVL against its market cap on log axes. The line is the same law the board prices by: it is fitted to these points, so a reader can see what it got right.</p>' +
+      '<svg viewBox="0 0 ' + w + ' ' + h + '" class="mchart">' + grid +
+      '<line x1="' + X(x0) + '" y1="' + Y(y0) + '" x2="' + X(x1) + '" y2="' + Y(y1) + '" stroke="#6fd0a8" stroke-width="2" stroke-dasharray="6 4"/>' +
+      dots + '</svg>' +
+      '<div class="mkey"><span><i style="background:#f0a83c"></i>a live protocol</span><span><i style="background:#6fd0a8"></i>mcap = 10^' + f.intercept.toFixed(4) + ' x tvl^' + f.slope.toFixed(4) + '</span></div>' +
+      '<table class="mtable"><thead><tr><th>Protocol</th><th class="n">TVL</th><th class="n">Market cap</th><th class="n">Multiple</th></tr></thead><tbody>' + rowsHtml + '</tbody></table>' +
+      '</div>';
+  }
+
   function renderBoard() {
+    if (state.flag === 'market') { renderMarket(); return; }
     var list = rowsFiltered();
     var ol = document.getElementById('rows');
     ol.textContent = '';
